@@ -54,7 +54,6 @@ span {
     padding-bottom: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    border-radius: 9999px;
 }
 
 .btn:hover {
@@ -234,10 +233,11 @@ ul {
 }
 
 .modal-content {
-    display: flex;
-    flex-direction: row;
-    background-color: #1A1C1D;
-    border-radius: 1.5rem;
+  width: 900px;
+  display: flex;
+  flex-direction: row;
+  background-color: #1A1C1D;
+  border-radius: 1.5rem;
 }
 
 .modal-content-white .modal-body {
@@ -260,6 +260,16 @@ ul {
     border-top-right-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.modal-content-white > .modal-body-left {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.modal-content-white > .modal-body-right {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .modal-body .card-body {
@@ -322,7 +332,6 @@ ul {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-right: 1rem;
-    border-radius: 9999px;
 }
 
 .crypto-custom-btn:hover {
@@ -341,6 +350,7 @@ ul {
 }
 
 .crypto-custom-btn_link {
+  display: flex;
     font-weight: 500;
     position: relative;
     padding: 10px 0!important;
@@ -348,7 +358,7 @@ ul {
 }
 
 .crypto-custom-btn_menu {
-    width: 160px;
+    width: fit-content;
     height: 50px;
     display: flex;
     font-family: 'Space Grotesk', sans-serif;
@@ -361,7 +371,6 @@ ul {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-right: 1rem;
-    border-radius: 9999px;
     align-items: center;
     color: #fff;
     opacity: 0.8;
@@ -409,7 +418,7 @@ ul {
 .modal-body .crypto-card-text {
     color: #fff;
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .crypto-card-header {
@@ -420,7 +429,7 @@ ul {
 .btn-circle.btn-md {
     width: 50px;
     height: 50px;
-    padding: 7px 10px;
+    padding: 10px 10px;
     border-radius: 25px;
     font-size: 10px;
     text-align: center;
@@ -435,7 +444,7 @@ ul {
 .row-circle-button {
     justify-content: center;
     z-index: 1;
-    margin: 140px;
+    margin: 175px;
     position: fixed;
 }
 
@@ -447,10 +456,15 @@ ul {
 
 #custom-dropdown-menu .dropdown-item {
   font-weight: 300;
-    color: #fff;
-    font-size: larger;
+  color: #fff;
+  font-size: larger;
+  margin-left: 5px;
 }
 
+#custom-dropdown-menu .dropdown-item:hover {
+  background-color: #2D2F36;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
 .badge-danger-red {
   background-color: red;
   text-transform: uppercase;
@@ -460,6 +474,7 @@ ul {
   width: fit-content;
   height: 50px;
   display: flex;
+  margin: auto;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   background-color: #303749;
@@ -472,16 +487,32 @@ ul {
   color: #fff;
 }
 
+.btn-token:hover {
+  color: #fff;
+background-color: #66677D;
+}
+
 .card-white {
   background-color: transparent;
 }
 
 .card-white h6 {
+  font-size: 1.2rem;
+  font-weight: 400;
   color: #1A1B1F;
+  padding: 0.5rem 0.5rem;
 }
 
 .card-white .card-body {
   padding: 0;
+}
+
+.card-background {
+  background-image: url(/assets/arbitrum-backgound.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80% 100%;
+  opacity: 0.09;
 }
 
 .item-top {
@@ -516,3 +547,149 @@ ul {
   background-color: rgb(26,28,29);
 }
 
+.table > :not(caption) > * > * {
+  font-size: 0.9rem;
+}
+
+.table tr {
+  border-color: transparent;
+}
+
+.btn-outline-custom {
+  height: 40px;
+  width: 90px;
+  padding: 0 5px;
+  background-color: #fff;
+  color: #000;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -.5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-outline-custom:hover {
+  background-color: #66677D;
+}
+
+.btn.show.btn-outline-custom {
+  background-color: #fff;
+}
+
+.search-input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-right: none;
+}
+
+.input-group-custom {
+  height: 40px;
+}
+
+#basic-addon2 {
+  background-color: #fff;
+  font-weight: 400;
+}
+
+.modal-body .crypto-name {
+  padding: 0px;
+  color: #000;
+  position: relative;
+  top: 2px;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+.dropdownMenu_selectToken {
+  width: 400px;
+  height: auto;
+}
+
+.card-selectToken {
+  padding: 15px;
+}
+
+.form-control_searchToken {
+  height: 40px;
+}
+
+.btn-outline {
+  font-family: 'Space Grotesk', sans-serif;
+  height: 40px;
+  border: 1px solid rgb(9 9 9 / 9%);
+  box-shadow: none!important;
+  width: 70px;
+  font-size: 0.7rem;
+  padding: 10px;
+  letter-spacing: -.5px;
+}
+
+.btn-outline:hover {
+  border: 1px solid rgb(9 9 9 / 9%);
+}
+
+.dropdownMenu_selectToken .card {
+  padding: 10px;
+  border: inherit;
+}
+
+.modal-body .card-text_selectToken {
+  justify-content: flex-end;
+  display: flex;
+  padding: 0 20px 10px;
+  color: #487EC4;
+  font-weight: 500;
+}
+
+.modal-body .span-crypto-name {
+  font-weight: 500;
+  color: #000;
+  padding-left: 0;
+}
+
+.modal-body .span-cost {
+  /* position: relative;
+  left: 70%; */
+  color: #000;
+  font-weight: 100;
+  padding-left: 10px;
+  white-space: nowrap;
+}
+
+.crypto-a {
+  color: #487EC4;
+  padding-left: 15px;
+}
+
+.modal-body .span-crypto-name2 {
+  font-weight: 400;
+}
+
+.modal-body .card-smallText_selectToken {
+  font-weight: 500;
+}
+
+.crypto-items {
+  margin-right: auto;
+  padding-left: 15px;
+}
+
+.badge.badge-info {
+  height: 30px;
+  margin-left: 20px;
+  border-radius: 1rem;
+  background-color: #ECFBE8;
+  color: #669755;
+  font-weight: 500;
+}
+
+.modal-body .crypto-card-text-sm {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 0;
+}
+
+.link-crypto {
+  color: #000;
+  text-decoration: none;
+}
