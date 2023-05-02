@@ -3544,6 +3544,7 @@ textarea.form-control-lg {
 
 .dropdown-menu.show {
   display: block;
+  z-index: 899990000000!important;
 }
 
 .dropdown-header {
@@ -3599,7 +3600,7 @@ textarea.form-control-lg {
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > .btn.active {
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .btn-toolbar {
