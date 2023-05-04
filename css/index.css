@@ -505,7 +505,7 @@ ul {
 }
 
 .btn-token {
-  width: fit-content;
+  width: -webkit-fill-available;
   height: 65px;
   display: flex;
   margin: auto;
@@ -535,7 +535,7 @@ background-color: #66677D;
   font-size: 1.25rem;
   justify-content: center;
   font-weight: 400;
-  padding: 2rem;
+ margin: auto auto;
 }
 .card-white {
   background-color: transparent;
@@ -543,7 +543,7 @@ background-color: #66677D;
 }
 
 .card-white h6 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: #1A1B1F;
   padding: 0.5rem 0.5rem;
@@ -591,8 +591,8 @@ background-color: #66677D;
   background-color: rgb(26,28,29);
 }
 
-.table > :not(caption) > * > * {
-  font-size: 0.9rem;
+.table {
+  font-size: 1.1rem;
 }
 
 .table tr {
@@ -766,3 +766,39 @@ background-color: #66677D;
   font-weight: 500;
   color: #000;
 }
+
+.table tr td:first-child {
+  width: 150px;
+}
+
+.table-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.table-row {
+  color: #808080;
+}
+
+.table-row td:first-child {
+  display: block;
+  margin-left: 20px;
+}
+
+.table-row:last-child {
+  bottom: 10px;
+  position: relative;
+}
+
+.table tr.tfooter {
+  border-top: 1px solid #e8e8e8;
+  top: 20px;
+  position: relative;
+}
+
+.table tr td:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
