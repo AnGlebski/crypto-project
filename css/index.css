@@ -505,7 +505,9 @@ ul {
 }
 
 .btn-token {
-  width: -webkit-fill-available;
+  width: fill-available !important;
+  width: -webkit-fill-available !important;
+  width: -moz-available !important;
   height: 65px;
   display: flex;
   margin: auto;
@@ -771,9 +773,9 @@ background-color: #66677D;
   width: 150px;
 }
 
-.table-price {
-  font-size: 1.2rem;
-  font-weight: 600;
+table .table-price {
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
 }
 
 .table-row {
@@ -790,10 +792,10 @@ background-color: #66677D;
   position: relative;
 }
 
-.table tr.tfooter {
-  border-top: 1px solid #e8e8e8;
-  top: 20px;
-  position: relative;
+table.table tr.tfooter {
+  border-top: 1px solid #e8e8e8 !important;
+  top: 20px !important;
+  position: relative !important;
 }
 
 .table tr td:last-child {
