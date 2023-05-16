@@ -1,4 +1,7 @@
 {
   // Live Server (extension) should be replaced by Live Preview (built-in). But this project does not need any of that anyway.
-    "liveServer.settings.port": 5501
+  "liveServer.settings.port": 5501,
+  "[typescript][javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
