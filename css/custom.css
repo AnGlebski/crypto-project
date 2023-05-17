@@ -1,0 +1,4 @@
+#tokenList {
+  overflow: scroll;
+  max-height: 255px;
+}

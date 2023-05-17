@@ -16,8 +16,9 @@
 
       <link href="css/styles.css" rel="stylesheet" />
       <link href="css/index.css" rel="stylesheet" />
+      <link href="css/custom.css" rel="stylesheet" />
 
-
+      <script type="module" src="./src/app.ts"></script>
   </head>
   <body id="page-top">
     <div class="wrapper">
@@ -200,7 +201,7 @@
 
 
 
-        <div class="modal fade connectModal" id="connectModal"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="connectModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade connectModal" id="connectModal"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="connectModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-body col-5 modal-body-left">
@@ -285,7 +286,7 @@
 
               </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="modal" id="cryptoInfo"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="cryptoInfoLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -343,9 +344,9 @@
                                   </form>
                                   <div class="card card-white card-selectToken m-3">
                                     <div class="card-body">
-                                      <div class="pl-0">
+                                      <div class="pl-0" id="tokenList">
 
-                                        <div class="d-flex align-items-center mb-3">
+                                        <!-- <div class="d-flex align-items-center mb-3">
                                           <img src="assets/arbitrum.png" alt="" width="40" style="padding-left: 10px;">
                                           <div class="d-flex align-items-center flex-column">
                                             <div class="d-flex flex-row crypto-items">
@@ -368,9 +369,6 @@
                                               <span class="span-crypto-name">1INCH</span>
                                               <span class="span-crypto-name2">1INCH Token</span>
                                               <span class="badge badge-info">
-                                                <!-- <img src="assets/icon-green.png" alt="">
-                                                Official ARB token
-                                              </span> -->
                                             </div>
                                             <div class="d-flex flex-column">
                                               <a class="crypto-a textDecoration" href="#">0x111...c302</a>
@@ -394,6 +392,7 @@
                                           </div>
                                           <span class="span-cost">14.3976 DAI</span>
                                         </div>
+                                         -->
                                       </div>
                                     </div>
 
@@ -494,34 +493,35 @@
         </div>
     </div>
 
+    <script src="js/jquery.js"></script>
+    <script src="libs/gsap/gsap.min.js" defer></script>
+    <script src="libs/gsap/ScrollTrigger.min.js" defer></script>
+    <script src="libs/gsap/ScrollSmoother.min.js" defer></script>
+
+    <script src="js/bootstrap.min.js" defer></script>
+    <script src="js/bootstrap.bundle.min.js" defer></script>
+    <script src="js/app.js" defer></script>
+
   </body>
 
-
-
-
 </html>
-<script src="js/jquery.js"></script>
-<script src="libs/gsap/gsap.min.js" defer></script>
-<script src="libs/gsap/ScrollTrigger.min.js" defer></script>
-<script src="libs/gsap/ScrollSmoother.min.js" defer></script>
-
-<script src="js/bootstrap.min.js" defer></script>
-<script src="js/bootstrap.bundle.min.js" defer></script>
-<script src="js/app.js" defer></script>
-
 
 <script type="text/javascript">
 
-  $(window).on('load', function() {
-    $('#connectModal').modal('show');
-  });
+//   $(window).on('load', function() {
+//     $('#connectModal').modal('show');
+//   });
 
-  $( document ).ready(function() {
-    $("#connectModal").fadeIn( "slow")
-});
+//   $( document ).ready(function() {
+//     $("#connectModal").fadeIn( "slow")
+// });
 
 $(window).on('load', function() {
     $('#cryptoInfo').modal('show');
+    // document.querySelector('.btn.crypto-custom-btn')
+    $('.btn.crypto-custom-btn').on('click', () => {
+      $('#cryptoInfo').modal('show');
+    })
   });
 
 
