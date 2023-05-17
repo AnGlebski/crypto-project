@@ -9,6 +9,12 @@ connectModalButton?.addEventListener("click", () => {
   web3modal.openModal();
 });
 
+web3modal.subscribeEvents(async (newEvent) => {
+  if (newEvent.type === "TRACK" && newEvent.name === "ACCOUNT_CONNECTED") {
+    await refetchBalances();
+  }
+});
+
 const tokenList = document.getElementById("tokenList") as HTMLDivElement | null;
 
 type Token = {
@@ -127,33 +133,41 @@ const tokens: Token[] = [
   },
 ];
 
-const account = getAccount();
+refetchBalances();
 
-const tokensWithBalances = await Promise.all(
-  tokens.map(async (token) => {
-    if (!account.address) {
-      console.info("Not connected to Web3 Wallet");
-      return token;
-    }
+async function refetchBalances() {
+  if (tokenList) {
+    tokenList.innerHTML = "";
+  }
 
-    try {
-      const fetched = await fetchBalance({
-        address: account.address,
-        token: token.address,
-      });
+  const account = getAccount();
 
-      return {
-        ...token,
-        quantity: fetched.formatted,
-      };
-    } catch (error) {
-      console.warn(`Could not get balance for ${token.symbol}`, error);
-      return token;
-    }
-  })
-);
+  const tokensWithBalances = await Promise.all(
+    tokens.map(async (token) => {
+      if (!account.address) {
+        console.info("Not connected to Web3 Wallet");
+        return token;
+      }
 
-tokensWithBalances.forEach(addNewTokenToList);
+      try {
+        const fetched = await fetchBalance({
+          address: account.address,
+          token: token.address,
+        });
+
+        return {
+          ...token,
+          quantity: fetched.formatted,
+        };
+      } catch (error) {
+        console.warn(`Could not get balance for ${token.symbol}`, error);
+        return token;
+      }
+    })
+  );
+
+  tokensWithBalances.forEach(addNewTokenToList);
+}
 
 function getEtherscanTokenImageLink<T extends string>(name: T) {
   return `https://etherscan.io/token/images/${name}.png` as const;
