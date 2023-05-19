@@ -115,7 +115,7 @@ const tokens: Token[] = [
     longName: "Tether USD",
     address: {
       1: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-      // 5: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      5: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
       42161: "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
     },
     quantity: 0,
@@ -126,7 +126,7 @@ const tokens: Token[] = [
     longName: "Dai Stablecoin",
     address: {
       1: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-      // 5: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      5: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
       42161: "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
     },
     quantity: 0,
@@ -137,7 +137,7 @@ const tokens: Token[] = [
     longName: "USD Coin",
     address: {
       1: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-      // 5: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      5: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       42161: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
     },
     quantity: 0,
@@ -155,7 +155,7 @@ const tokens: Token[] = [
     longName: "Wrapped Ether",
     address: {
       1: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-      // 5: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      5: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
       42161: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
     },
     quantity: 0,
@@ -166,7 +166,7 @@ const tokens: Token[] = [
     longName: "Arbitrum",
     address: {
       1: "0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1",
-      // 5: "0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1",
+      5: "0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1",
       42161: "0x912CE59144191C1204E64559FE8253a0e49E6548",
     },
     quantity: 0,
