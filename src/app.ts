@@ -1,6 +1,8 @@
-import { fetchBalance, getAccount } from "@wagmi/core";
+import { fetchBalance, getAccount, getNetwork } from "@wagmi/core";
+import { arbitrum, mainnet, goerli } from "@wagmi/core/chains";
 
-import { web3modal } from "./web3config";
+import { type chains, web3modal } from "./web3config";
+import type { Address } from "viem";
 
 const connectModalButton = document.querySelector(
   '[data-bs-target="#connectModal"]'
@@ -14,13 +16,31 @@ web3modal.subscribeEvents(async (newEvent) => {
     await refetchBalances();
   }
 });
+web3modal.subscribeModal(async (newState) => {
+  if (!newState.open) {
+    resetChain();
+    await refetchBalances();
+  }
+});
+
+let chain = getNetwork().chain;
+let chainId = (chain?.id as (typeof chains)[number]["id"] | undefined) ?? 1;
+function resetChain() {
+  chain = getNetwork().chain;
+  chainId = (chain?.id as (typeof chains)[number]["id"] | undefined) ?? 1;
+}
+
+type AddressAdaptive = Record<(typeof chains)[number]["id"], Address>;
+type AddressAny =
+  //  Address |
+  AddressAdaptive;
 
 const tokenList = document.getElementById("tokenList") as HTMLDivElement | null;
 
 type Token = {
   symbol: string;
   longName: string;
-  address: `0x${string}` | undefined;
+  address: AddressAny | undefined;
   quantity: number | string;
   /** @example 'assets/arbitrum.png' */
   image?: string;
@@ -45,10 +65,12 @@ function addNewTokenToList({
         </div>
         <div class="d-flex flex-column">
           <a class="crypto-a textDecoration" href="${
-            address ? `https://arbiscan.io/token/${address}` : "#"
-          }" target="_blank" rel="noreferrer">${formatEtherAddressToShort(
-    address
-  )}</a>
+            address
+              ? `${chain?.blockExplorers?.default.url}/token/${address[chainId]}`
+              : "#"
+          }" target="_blank" rel="noreferrer">${
+    address ? formatEtherAddressToShort(address[chainId]) : "..."
+  }</a>
           <span class="card-smallText_selectToken">Arbed Uniswap List and 2 more lists</span>
         </div>
       </div>
@@ -81,7 +103,7 @@ function removeTrailingZeroesFromNumberString(str: string) {
 }
 
 /** Formats a long address as `0x111...c302` */
-function formatEtherAddressToShort(address: `0x${string}` | undefined) {
+function formatEtherAddressToShort(address: Address | undefined) {
   if (!address) return "...";
   const firstPart = address.slice(0, 5);
   const secondPart = address.slice(-4);
@@ -92,21 +114,33 @@ const tokens: Token[] = [
   {
     symbol: "USDT",
     longName: "Tether USD",
-    address: "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+    address: {
+      [mainnet.id]: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      [goerli.id]: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      [arbitrum.id]: "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+    },
     quantity: 0,
     image: getEthplorerTokenImageLink("tether"),
   },
   {
     symbol: "DAI",
     longName: "Dai Stablecoin",
-    address: "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+    address: {
+      [mainnet.id]: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      [goerli.id]: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      [arbitrum.id]: "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+    },
     quantity: 0,
     image: getEthplorerTokenImageLink("mcd-dai"),
   },
   {
     symbol: "USDC",
     longName: "USD Coin",
-    address: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
+    address: {
+      [mainnet.id]: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      [goerli.id]: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      [arbitrum.id]: "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
+    },
     quantity: 0,
     image: getEthplorerTokenImageLink("usdc"),
   },
@@ -120,14 +154,22 @@ const tokens: Token[] = [
   {
     symbol: "WETH",
     longName: "Wrapped Ether",
-    address: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+    address: {
+      [mainnet.id]: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      [goerli.id]: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      [arbitrum.id]: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+    },
     quantity: 0,
     image: getEtherscanTokenImageLink("weth_28"),
   },
   {
     symbol: "ARB",
     longName: "Arbitrum",
-    address: "0x912CE59144191C1204E64559FE8253a0e49E6548",
+    address: {
+      [mainnet.id]: "0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1",
+      [goerli.id]: "0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1",
+      [arbitrum.id]: "0x912CE59144191C1204E64559FE8253a0e49E6548",
+    },
     quantity: 0,
     image: getEtherscanTokenImageLink("arbitrumone2_32"),
   },
@@ -152,7 +194,7 @@ async function refetchBalances() {
       try {
         const fetched = await fetchBalance({
           address: account.address,
-          token: token.address,
+          token: token.address?.[chainId],
         });
 
         return {
