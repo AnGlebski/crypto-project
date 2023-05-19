@@ -65,7 +65,7 @@ function addNewTokenToList({
         <div class="d-flex flex-column">
           <a class="crypto-a textDecoration" href="${
             address
-              ? `${chain?.blockExplorers?.default.url}/token/${address}`
+              ? `${chain?.blockExplorers?.default.url}/token/${address[chainId]}`
               : "#"
           }" target="_blank" rel="noreferrer">${
     address ? formatEtherAddressToShort(address[chainId]) : "..."
