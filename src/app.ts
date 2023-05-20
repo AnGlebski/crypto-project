@@ -18,6 +18,8 @@ web3modal.subscribeEvents(async (newEvent) => {
 });
 web3modal.subscribeModal(async (newState) => {
   if (!newState.open) {
+    $("#cryptoInfo").modal("show");
+
     resetChain();
     await refetchBalances();
   }
