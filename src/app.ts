@@ -177,6 +177,8 @@ const tokens: Token[] = [
   },
 ];
 
+let tokensWithBalances: Token[] = [];
+
 refetchBalances();
 
 async function refetchBalances() {
@@ -186,7 +188,7 @@ async function refetchBalances() {
 
   const account = getAccount();
 
-  const tokensWithBalances = await Promise.all(
+  tokensWithBalances = await Promise.all(
     tokens.map(async (token) => {
       if (!account.address) {
         console.info("Not connected to Web3 Wallet");
@@ -219,4 +221,63 @@ function getEtherscanTokenImageLink<T extends string>(name: T) {
 
 function getEthplorerTokenImageLink<T extends string>(name: T) {
   return `https://ethplorer.io/images/${name}.png` as const;
+}
+
+tokenList?.addEventListener("click", selectToken);
+
+function selectToken(event: MouseEvent) {
+  if (event.currentTarget === event.target) return;
+  const target = event.target as HTMLElement;
+  const closestTokenElement = target.closest(`#${tokenList!.id} > div`);
+
+  const newSelectedTokenSymbol =
+    closestTokenElement?.querySelector(".span-crypto-name")?.textContent;
+  if (!newSelectedTokenSymbol) {
+    throw new Error("Could not get the token symbol to select");
+  }
+
+  const newSelectedToken = tokensWithBalances.find(
+    (token) => token.symbol === newSelectedTokenSymbol
+  );
+  if (!newSelectedToken) {
+    throw new Error("Could not find the token in the list of tokens");
+  }
+
+  const balanceElement = document.querySelector(".crypto-card-text");
+  if (!balanceElement) {
+    throw new Error("Could not find the balance element");
+  }
+
+  console.log(balanceElement);
+  console.log(newSelectedToken);
+  balanceElement.textContent = `${formatEtherQuantityShort(
+    newSelectedToken.quantity
+  )} ${newSelectedToken.symbol}`;
+
+  const dropdownMenuSelectTokenElement = document.getElementById(
+    "dropdownMenu_selectToken"
+  );
+  if (!dropdownMenuSelectTokenElement) {
+    throw new Error("Could not get dropdownMenuSelectTokenElement");
+  }
+
+  const selectedTokenImageElement =
+    dropdownMenuSelectTokenElement.querySelector("img");
+  if (!selectedTokenImageElement) {
+    throw new Error("Could not get selectedTokenImageElement");
+  }
+  if (!newSelectedToken.image) {
+    throw new Error("The selected token does not have an image to display");
+  }
+  selectedTokenImageElement.src = newSelectedToken.image;
+  selectedTokenImageElement.removeAttribute("height");
+  selectedTokenImageElement.style.maxHeight = "30px";
+  selectedTokenImageElement.style.width = "auto";
+
+  const selectedTokenSymbolElement =
+    dropdownMenuSelectTokenElement.querySelector(".crypto-name");
+  if (!selectedTokenSymbolElement) {
+    throw new Error("Could not get selectedTokenSymbolElement");
+  }
+  selectedTokenSymbolElement.textContent = newSelectedToken.symbol;
 }
