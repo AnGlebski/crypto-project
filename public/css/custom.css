@@ -2,3 +2,8 @@
   overflow: scroll;
   max-height: 255px;
 }
+
+#tokenList > div:hover {
+  background: #eee;
+  border-radius: var(--bs-dropdown-border-radius);
+}
