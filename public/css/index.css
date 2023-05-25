@@ -386,7 +386,7 @@ ul {
   padding-right: 1rem;
   align-items: center;
   color: #fff;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 
 .crypto-custom-btn_menu:hover {
@@ -803,4 +803,3 @@ table.table tr.tfooter {
   flex-direction: column;
   align-items: flex-end;
 }
-

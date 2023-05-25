@@ -1,7 +1,12 @@
-import { fetchBalance, getAccount, getNetwork } from "@wagmi/core";
+import {
+  fetchBalance,
+  getAccount,
+  getNetwork,
+  switchNetwork,
+} from "@wagmi/core";
 import { arbitrum, mainnet, goerli } from "@wagmi/core/chains";
 
-import { type chains, web3modal } from "./web3config";
+import { chains, web3modal } from "./web3config";
 import type { Address } from "viem";
 
 const connectModalButton = document.querySelector(
@@ -11,9 +16,25 @@ connectModalButton?.addEventListener("click", () => {
   web3modal.openModal();
 });
 
+const account = getAccount();
+const connectWalletButton = document.getElementById("connect-wallet-button");
+connectWalletButton?.addEventListener("click", () => {
+  web3modal.openModal();
+});
+if (account.isConnected && connectWalletButton) {
+  connectWalletButton.style.display = "none";
+}
+
 web3modal.subscribeEvents(async (newEvent) => {
   if (newEvent.type === "TRACK" && newEvent.name === "ACCOUNT_CONNECTED") {
     await refetchBalances();
+
+    if (!connectWalletButton) return;
+    connectWalletButton.style.display = "none";
+  }
+  if (newEvent.type === "TRACK" && newEvent.name === "ACCOUNT_DISCONNECTED") {
+    if (!connectWalletButton) return;
+    connectWalletButton.style.display = "initial";
   }
 });
 web3modal.subscribeModal(async (newState) => {
@@ -281,3 +302,61 @@ function selectToken(event: MouseEvent) {
   }
   selectedTokenSymbolElement.textContent = newSelectedToken.symbol;
 }
+
+//#region network switching
+const chainImages = {
+  [arbitrum.id]: "assets/arbitrum.png",
+  [mainnet.id]: "assets/Ethereum.svg",
+  [goerli.id]: "assets/Ethereum-ETH-icon.png",
+};
+
+const networkSwitchers = Array.from(
+  document.getElementsByClassName("network-switcher")
+);
+
+networkSwitchers.forEach((networkSwitcher) => {
+  networkSwitcher.innerHTML = "";
+  const networkSwitcherButtonElement =
+    networkSwitcher.parentElement!.querySelector("a.crypto-custom-btn_link");
+  const networkSwitcherImageElement =
+    networkSwitcher.parentElement!.querySelector(
+      "img.crypto-custom-btn_icon"
+    ) as HTMLImageElement | null;
+
+  replaceChainNameInButton(chain);
+  function replaceChainNameInButton(newChain: typeof chain) {
+    if (networkSwitcherButtonElement) {
+      const chainNameToSet = newChain?.name ?? "Unknown";
+      networkSwitcherButtonElement.textContent =
+        networkSwitcherButtonElement.textContent
+          ?.replace("Mainnet", chainNameToSet)
+          .replace(chain?.name ?? "Unknown", chainNameToSet) ?? "";
+
+      resetChain();
+    }
+    if (networkSwitcherImageElement && newChain) {
+      networkSwitcherImageElement.src =
+        chainImages[newChain.id as keyof typeof chainImages];
+    }
+  }
+
+  chains.forEach((aChain) => {
+    const liElement = document.createElement("li");
+    liElement.innerHTML = `
+      <li class="d-flex align-items-center mb-2">
+        <img src="${
+          chainImages[aChain.id]
+        }" alt="" width="40" style="padding-left: 10px; min-height: 30px;">
+        <a class="dropdown-item" href="#">${aChain.name}</a>
+      </li>
+    `;
+
+    liElement.addEventListener("click", async () => {
+      const switchNetworkResult = await switchNetwork({ chainId: aChain.id });
+
+      replaceChainNameInButton(switchNetworkResult);
+    });
+    networkSwitcher.appendChild(liElement);
+  });
+});
+//#endregion
