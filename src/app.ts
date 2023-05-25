@@ -11,9 +11,25 @@ connectModalButton?.addEventListener("click", () => {
   web3modal.openModal();
 });
 
+const account = getAccount();
+const connectWalletButton = document.getElementById("connect-wallet-button");
+connectWalletButton?.addEventListener("click", () => {
+  web3modal.openModal();
+});
+if (account.isConnected && connectWalletButton) {
+  connectWalletButton.style.display = "none";
+}
+
 web3modal.subscribeEvents(async (newEvent) => {
   if (newEvent.type === "TRACK" && newEvent.name === "ACCOUNT_CONNECTED") {
     await refetchBalances();
+
+    if (!connectWalletButton) return;
+    connectWalletButton.style.display = "none";
+  }
+  if (newEvent.type === "TRACK" && newEvent.name === "ACCOUNT_DISCONNECTED") {
+    if (!connectWalletButton) return;
+    connectWalletButton.style.display = "initial";
   }
 });
 web3modal.subscribeModal(async (newState) => {
